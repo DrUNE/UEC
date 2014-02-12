@@ -1,0 +1,36 @@
+<div class="msb show">
+    <div class="b-popup" ng-controller="FeedbackCtrl">
+        <a href="#/"><i class="close"></i></a>
+        <div class="popup-cont">
+            <h2 class="form-name">Обратная связь</h2>
+            <form name="feedbackForm" novalidate class="popup-form">
+                <div class="side">
+                    <label class="f-label">Сообщение
+                        <textarea class="in-text" name="message" ng-model="feedback.message" required="" ng-class="{ 'error' : isValid(feedbackForm.message) }"></textarea>
+                    </label>
+                </div>
+                <div class="side">
+                    <label class="f-label">Представьтесь, пожалуйста
+                        <input type="text" name="name" class="in-text" ng-model="feedback.name" required="" ng-class="{ 'error' : isValid(feedbackForm.name) }"/>
+                    </label>
+                    <label class="f-label">Электронная почта для ответа
+                        <input type="email" name="email" class="in-text" ng-model="feedback.email" ng-class="{ 'error' : isValid(feedbackForm.email)}"/>
+                    </label>
+                    <label class="f-label">Введите цифры, указанные на изображении
+                        <div class="side">
+                            <!--<img src="images/capcha.jpg" alt=""/>-->
+                            <img ng-src="/captcha.jpg" alt="" height="65" width="156"/>
+                        </div>
+                        <div class="side">
+                            <input type="text" name="captcha" class="in-text" ng-model="feedback.captcha" required="" ng-class="{ 'error' : isValid(feedbackForm.captcha)}"/>
+                            <a href="#">Показать другие</a>
+                        </div>
+                    </label>
+                </div>
+                <div class="subm-part">
+                    <input type="submit" class="subm-btn" value="Отправить" ng-click="sendFeedback(feedbackForm)"/>
+                </div>
+            </form>
+        </div>
+    </div><!--b-popup-->
+</div><!--msb-->

@@ -1,0 +1,5 @@
+.idea/
+*.iml
+target/
+src/main/frontend/node_modules/
+src/main/frontend/app/bower_components/

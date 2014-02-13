@@ -19,11 +19,11 @@
                     <label class="f-label">Введите цифры, указанные на изображении
                         <div class="side">
                             <!--<img src="images/capcha.jpg" alt=""/>-->
-                            <img ng-src="/captcha.jpg" alt="" height="65" width="156"/>
+                            <img ng-src="{{'/captcha.jpg'+'?'+ captchaImgSrcTime}}" alt="" height="65" width="156"/>
                         </div>
                         <div class="side">
                             <input type="text" name="captcha" class="in-text" ng-model="feedback.captcha" required="" ng-class="{ 'error' : isValid(feedbackForm.captcha)}"/>
-                            <a href="#">Показать другие</a>
+                            <a href="" ng-click="refreshCaptchaImg()">Показать другие</a>
                         </div>
                     </label>
                 </div>

@@ -22,6 +22,12 @@ angular.module('feedbackControllers', [])
                 if(form.$valid){
                     $location.path('/feedbackSendSuccess')
                 }
+            },
+
+            captchaImgSrcTime: new Date().getTime(),
+
+            refreshCaptchaImg: function(){
+                $scope.captchaImgSrcTime = new Date().getTime();
             }
         });
     })

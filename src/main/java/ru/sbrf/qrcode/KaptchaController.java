@@ -28,90 +28,15 @@ import java.util.Properties;
  * Created by sbt-litvinov-ay on 11.02.14.
  */
 @Controller
-public class KaptchaController extends KaptchaExtend {
+public class KaptchaController {
 
 //    @RequestMapping(value = "/captcha.jpg", method = RequestMethod.GET)
 //    public void captcha(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        super.captcha(req, resp);
 //    }
 
-
-    @RequestMapping(value = "my/captcha.jpg", headers = "Accept=image/jpeg", method = RequestMethod.GET)
-    @ResponseBody()
-    public BufferedImage getImage() {
-            Properties props = new Properties();
-
-            Producer kaptchaProducer = null;
-
-            String sessionKeyValue = null;
-
-            String sessionKeyDateValue = null;
-            // Switch off disk based caching.
-            ImageIO.setUseCache(false);
-
-            props.put("kaptcha.border", "no");
-            props.put("kaptcha.textproducer.font.color", "black");
-            props.put("kaptcha.textproducer.char.space", "5");
-
-            Config config = new Config(props);
-            kaptchaProducer = config.getProducerImpl();
-            sessionKeyValue = config.getSessionKey();
-            sessionKeyDateValue = config.getSessionDate();
-
-            // create the text for the image
-            String capText = kaptchaProducer.createText();
-            BufferedImage bi = kaptchaProducer.createImage(capText);
-
-//            ServletOutputStream out = resp.getOutputStream();
-//
-//            // write the data out
-//            ImageIO.write(bi, "jpg", out);
-//
-//            InputStream inputStream = this.getClass().getResourceAsStream("myimage.jpg");
-//            return ImageIO.read(inputStream);
-            return bi;
-    }
-
-    @RequestMapping(value = "/captchaBad.jpg", method = RequestMethod.GET, headers = "Accept=image/jpeg", produces = "image/jpg")
-    public @ResponseBody byte[] getFile()  {
-        try {
-            Properties props = new Properties();
-
-            Producer kaptchaProducer = null;
-
-            String sessionKeyValue = null;
-
-            String sessionKeyDateValue = null;
-            // Switch off disk based caching.
-            ImageIO.setUseCache(false);
-
-            props.put("kaptcha.border", "no");
-            props.put("kaptcha.textproducer.font.color", "black");
-            props.put("kaptcha.textproducer.char.space", "5");
-
-            Config config = new Config(props);
-            kaptchaProducer = config.getProducerImpl();
-            sessionKeyValue = config.getSessionKey();
-            sessionKeyDateValue = config.getSessionDate();
-
-            // create the text for the image
-            String capText = kaptchaProducer.createText();
-            BufferedImage img = kaptchaProducer.createImage(capText);
-
-            // Create a byte array output stream.
-            ByteArrayOutputStream bao = new ByteArrayOutputStream();
-
-            // Write to output stream
-            ImageIO.write(img, "jpg", bao);
-
-            return bao.toByteArray();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     @RequestMapping(value = "/captcha.jpg", method = RequestMethod.GET, headers = "Accept=image/jpeg", produces = "image/jpg")
-    public HttpEntity<byte[]> getCaptcha2()  {
+    public HttpEntity<byte[]> getCaptcha2() {
         try {
             Properties props = new Properties();
 
@@ -142,7 +67,7 @@ public class KaptchaController extends KaptchaExtend {
             // Write to output stream
             ImageIO.write(img, "jpg", bao);
 
-            byte[] imgBytes =  bao.toByteArray();
+            byte[] imgBytes = bao.toByteArray();
 
             HttpHeaders httpheaders = new HttpHeaders();
             //httpheaders.setCacheControl("no-store, no-cache");
@@ -154,39 +79,39 @@ public class KaptchaController extends KaptchaExtend {
         }
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public ModelAndView registerGet(@RequestParam(value = "error", required = false) boolean failed,
-                                    HttpServletRequest request) {
-        ModelAndView model = new ModelAndView("register-get");
-
-        //
-        // model MUST contain HTML with <img src="/captcha.jpg" /> tag
-        //
-
-        return model;
-    }
-
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ModelAndView registerPost(@RequestParam(value = "email", required = true) String email,
-                                     @RequestParam(value = "password", required = true) String password, HttpServletRequest request) {
-        ModelAndView model = new ModelAndView("register-post");
-
-        if (email.isEmpty())
-            throw new RuntimeException("email empty");
-
-        if (password.isEmpty())
-            throw new RuntimeException("empty password");
-
-        String captcha = request.getParameter("captcha");
-
-        if (!captcha.equals(getGeneratedKey(request)))
-            throw new RuntimeException("bad captcha");
-
-        //
-        // eveyting is ok. proceed with your user registration / login process.
-        //
-
-        return model;
-    }
+//    @RequestMapping(value = "/register", method = RequestMethod.GET)
+//    public ModelAndView registerGet(@RequestParam(value = "error", required = false) boolean failed,
+//                                    HttpServletRequest request) {
+//        ModelAndView model = new ModelAndView("register-get");
+//
+//        //
+//        // model MUST contain HTML with <img src="/captcha.jpg" /> tag
+//        //
+//
+//        return model;
+//    }
+//
+//    @RequestMapping(value = "/register", method = RequestMethod.POST)
+//    public ModelAndView registerPost(@RequestParam(value = "email", required = true) String email,
+//                                     @RequestParam(value = "password", required = true) String password, HttpServletRequest request) {
+//        ModelAndView model = new ModelAndView("register-post");
+//
+//        if (email.isEmpty())
+//            throw new RuntimeException("email empty");
+//
+//        if (password.isEmpty())
+//            throw new RuntimeException("empty password");
+//
+//        String captcha = request.getParameter("captcha");
+//
+//        if (!captcha.equals(getGeneratedKey(request)))
+//            throw new RuntimeException("bad captcha");
+//
+//        //
+//        // eveyting is ok. proceed with your user registration / login process.
+//        //
+//
+//        return model;
+//    }
 
 }

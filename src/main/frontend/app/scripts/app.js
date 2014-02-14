@@ -48,7 +48,7 @@ mainApp.config('$mainProvider', function ($mainProvider) {
 			templateUrl: 'views/users.html',
 			controller: 'MainController'
 		})
-		.when('/contact', {
+		.when('/exports', {
 			templateUrl: 'views/users.html',
 			controller: 'MainController'
 		});

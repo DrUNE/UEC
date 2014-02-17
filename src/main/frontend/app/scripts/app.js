@@ -1,5 +1,6 @@
 'use strict';
 
+/*
 var feedbackApp = angular.module('feedbackApp', [
     'ngRoute',
     'feedbackControllers'
@@ -24,6 +25,7 @@ feedbackApp.config(['$routeProvider',
 			redirectTo: '/testIndex'
 		});
     }]);
+*/
 
 
 
@@ -35,21 +37,29 @@ var loginApp = angular.module('loginApp', [
 
 var mainApp = angular.module('mainApp', [
 	'ngRoute',
-	'MainModule'
+	'mainControllers'
 ]);
 
-mainApp.config('$mainProvider', function ($mainProvider) {
-	$mainProvider
-		.when('/users', {
-			templateUrl: 'views/users.html',
+mainApp.config(['$routeProvider',
+    function ($routeProvider) {
+		$routeProvider.
+		when('/users', {
+			templateUrl: 'views/main/users.html',
 			controller: 'MainController'
-		})
-		.when('/loading', {
-			templateUrl: 'views/users.html',
+		}).
+		when('/loading', {
+			templateUrl: 'views/main/loading.html',
 			controller: 'MainController'
-		})
-		.when('/exports', {
-			templateUrl: 'views/users.html',
+		}).
+		when('/exports', {
+			templateUrl: 'views/main/exports.html',
 			controller: 'MainController'
+		}).
+		when('/rejects', {
+			templateUrl: 'views/main/rejects.html',
+			controller: 'MainController'
+		}).
+		otherwise({
+			redirectTo: '/users'
 		});
-});
+    }]);

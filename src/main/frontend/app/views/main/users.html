@@ -1,0 +1,15 @@
+<div ng-controller="UserController">
+	<h2>Пользователи</h2>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th ng-repeat="c in all_columns">{{ c.title }}
+				</th>
+			</tr>
+			<tbody>
+				<tr ng-repeat="d in data">
+					<td ng-repeat="c in all_columns">{{ d[c.title] }}</td>
+				</tr>
+			</tbody>
+	</table>
+</div>

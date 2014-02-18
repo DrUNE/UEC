@@ -125,6 +125,13 @@
       <version>${json-path.version}</version>
       <scope>test</scope>
     </dependency>
+    
+    <!-- uec-logistic mock -->
+    <dependency>
+    	<groupId>ru.sbrf.qrcode</groupId>
+    	<artifactId>ueck-mock</artifactId>
+    	<version>0.0.1-SNAPSHOT</version>
+    </dependency>
 
   </dependencies>
 

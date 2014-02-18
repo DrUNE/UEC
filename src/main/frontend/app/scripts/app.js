@@ -1,6 +1,6 @@
 'use strict';
 
-/*
+
 var feedbackApp = angular.module('feedbackApp', [
     'ngRoute',
     'feedbackControllers'
@@ -25,12 +25,10 @@ feedbackApp.config(['$routeProvider',
 			redirectTo: '/testIndex'
 		});
     }]);
-*/
 
 
 
 var loginApp = angular.module('loginApp', [
-	'ngRoute',
 	'LoginModule'
 ]);
 

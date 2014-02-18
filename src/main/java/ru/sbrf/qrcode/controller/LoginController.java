@@ -19,8 +19,11 @@ import ru.sbrf.qrcode.json.User;
 @Controller
 public class LoginController {
 	
-	@RequestMapping(value = "/login", method = RequestMethod.POST, 
-			consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(
+            value = "/rest/login",
+            method = RequestMethod.POST,
+			consumes = {MediaType.APPLICATION_JSON_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE})
 	public @ResponseBody RequestResult login(@RequestBody User user) {
 		RequestResult result = new RequestResult();
 		result.setResultCode(ResultCode.SUCCESS);

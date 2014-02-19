@@ -16,10 +16,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import ru.sbrf.qrcode.events.user.ChangeUserPasswordEvent;
 import ru.sbrf.qrcode.events.user.ChangeUserStatusEvent;
+import ru.sbrf.qrcode.events.user.CreateUserEvent;
 import ru.sbrf.qrcode.events.user.DeleteUserEvent;
-import ru.sbrf.qrcode.events.user.DeletedUserEvent;
-import ru.sbrf.qrcode.events.user.SelectedAllUsersEvent;
-import ru.sbrf.qrcode.events.user.UpdatedUserEvent;
+import ru.sbrf.qrcode.events.user.UserDeletedEvent;
+import ru.sbrf.qrcode.events.user.AllUsersSelectedEvent;
+import ru.sbrf.qrcode.events.user.UserUpdatedEvent;
 import ru.sbrf.qrcode.events.user.UserDetails;
 import ru.sbrf.qrcode.json.UserData;
 import ru.sbrf.qrcode.services.UserEventHandler;
@@ -45,10 +46,26 @@ public class UserController {
 	public ResponseEntity<List<UserData>> getAllUsers(){
 		List<UserData> users = new ArrayList<UserData>();
 		
-		SelectedAllUsersEvent selectedAllUsersEvent = userEventHandler.getAllUsers();
+		AllUsersSelectedEvent selectedAllUsersEvent = userEventHandler.getAllUsers();
 		for(UserDetails userDetails: selectedAllUsersEvent.getUsers())
 			users.add(UserData.fromUserDetails(userDetails));
 		
+		return new ResponseEntity<List<UserData>>(users, HttpStatus.OK);
+	}
+	
+	/**
+	 * Добавление пользователя
+	 */
+	@RequestMapping(method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
+	@ResponseBody
+	public ResponseEntity<List<UserData>> createUser(@RequestBody UserData userData){
+		CreateUserEvent createUserEvent = new CreateUserEvent(UserData.toUserDetails(userData));
+		
+		AllUsersSelectedEvent selectedAllUsersEvent = userEventHandler.createUser(createUserEvent);
+		
+		List<UserData> users = new ArrayList<UserData>();
+		for(UserDetails userDetails: selectedAllUsersEvent.getUsers())
+			users.add(UserData.fromUserDetails(userDetails));
 		return new ResponseEntity<List<UserData>>(users, HttpStatus.OK);
 	}
 	
@@ -59,7 +76,7 @@ public class UserController {
 	@ResponseBody
 	public ResponseEntity<UserData> deleteUser(@PathVariable String id){
 		DeleteUserEvent deleteUserEvent = new DeleteUserEvent(Integer.valueOf(id));
-		DeletedUserEvent deletedUserEvent = userEventHandler.deleteUser(deleteUserEvent);
+		UserDeletedEvent deletedUserEvent = userEventHandler.deleteUser(deleteUserEvent);
 		if(!deletedUserEvent.isEntityFound())
 			return new ResponseEntity<UserData>(HttpStatus.NOT_FOUND);
 		
@@ -78,7 +95,7 @@ public class UserController {
 	@ResponseBody
 	public ResponseEntity<UserData> changeActiveStatus(@RequestBody UserData userData){
 		ChangeUserStatusEvent updateEvent = new ChangeUserStatusEvent(userData.getId(), userData.isActive());
-		UpdatedUserEvent updatedUserEvent = userEventHandler.changeUserActiveStatus(updateEvent);
+		UserUpdatedEvent updatedUserEvent = userEventHandler.changeUserActiveStatus(updateEvent);
 		if(!updatedUserEvent.isEntityFound())
 			return new ResponseEntity<UserData>(HttpStatus.NOT_FOUND);
 		
@@ -97,7 +114,7 @@ public class UserController {
 	@ResponseBody
 	public ResponseEntity<UserData> changePassword(@RequestBody UserData userData){
 		ChangeUserPasswordEvent updateEvent = new ChangeUserPasswordEvent(userData.getId(), userData.getPassword());
-		UpdatedUserEvent updatedUserEvent = userEventHandler.changeUserPassword(updateEvent);
+		UserUpdatedEvent updatedUserEvent = userEventHandler.changeUserPassword(updateEvent);
 		if(!updatedUserEvent.isEntityFound())
 			return new ResponseEntity<UserData>(HttpStatus.NOT_FOUND);
 		

@@ -62,4 +62,12 @@ public class UserData {
 		userData.setRoleName(userDetails.getRoleName());
 		return userData;
 	}
+
+	public static UserDetails toUserDetails(UserData userData) {
+		UserDetails userDetails = new UserDetails();
+		userDetails.setLogin(userData.getLogin());
+		userDetails.setRoleName(userData.getRoleName());
+		userDetails.setActive(userData.isActive());
+		return userDetails;
+	}
 }

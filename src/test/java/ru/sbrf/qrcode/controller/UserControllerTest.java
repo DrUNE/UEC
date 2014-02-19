@@ -6,8 +6,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -20,10 +24,11 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import ru.sbrf.qrcode.events.user.ChangeUserPasswordEvent;
 import ru.sbrf.qrcode.events.user.ChangeUserStatusEvent;
+import ru.sbrf.qrcode.events.user.CreateUserEvent;
 import ru.sbrf.qrcode.events.user.DeleteUserEvent;
-import ru.sbrf.qrcode.events.user.DeletedUserEvent;
-import ru.sbrf.qrcode.events.user.SelectedAllUsersEvent;
-import ru.sbrf.qrcode.events.user.UpdatedUserEvent;
+import ru.sbrf.qrcode.events.user.UserDeletedEvent;
+import ru.sbrf.qrcode.events.user.AllUsersSelectedEvent;
+import ru.sbrf.qrcode.events.user.UserUpdatedEvent;
 import ru.sbrf.qrcode.events.user.UserDetails;
 import ru.sbrf.qrcode.json.UserData;
 import ru.sbrf.qrcode.services.UserEventHandler;
@@ -33,7 +38,7 @@ public class UserControllerTest {
 	private MockMvc mockMvc;
 	private MappingJackson2HttpMessageConverter msgConverter;
 	
-	private long id;
+	private int id;
 	
 	@InjectMocks
 	private UserController userController;
@@ -48,21 +53,31 @@ public class UserControllerTest {
 		this.msgConverter = new MappingJackson2HttpMessageConverter();
 		this.mockMvc = standaloneSetup(userController).setMessageConverters(
 				this.msgConverter).build();
-		this.id = 1L;
+		this.id = 1;
 	}
 	
 	@Test
 	public void testGetAllUsers() throws Exception {
-		when(userEventHandler.getAllUsers()).thenReturn(new SelectedAllUsersEvent());
+		AllUsersSelectedEvent selectedAllUsersEvent = new AllUsersSelectedEvent();
+		when(userEventHandler.getAllUsers()).thenReturn(selectedAllUsersEvent);
 		
 		mockMvc.perform(get("/users"))
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MediaType.APPLICATION_JSON));
+		
+		List<UserDetails> users = new ArrayList<UserDetails>();
+		users.add(new UserDetails(id));
+		selectedAllUsersEvent.setUsers(users);
+		mockMvc.perform(get("/users"))
+			.andExpect(status().isOk())
+			.andExpect(content().contentType(MediaType.APPLICATION_JSON))
+			.andExpect(jsonPath("$").isArray())
+			.andExpect(jsonPath("$[0].id").value(id));
 	}
 
 	@Test
 	public void testDeleteUser() throws Exception {
-		DeletedUserEvent deletedUserEvent = new DeletedUserEvent();
+		UserDeletedEvent deletedUserEvent = new UserDeletedEvent();
 		deletedUserEvent.setDeleteSuccess(Boolean.TRUE);
 		UserDetails userDetails = new UserDetails();
 		userDetails.setUserId(id);
@@ -73,15 +88,22 @@ public class UserControllerTest {
 		mockMvc.perform(delete("/users/{id}",id))
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MediaType.APPLICATION_JSON));
+		
+		deletedUserEvent.setDeleteSuccess(Boolean.FALSE);
+		when(userEventHandler.deleteUser(any(DeleteUserEvent.class))).thenReturn(deletedUserEvent);
+		
+		mockMvc.perform(delete("/users/{id}",id))
+			.andExpect(status().isForbidden())
+			.andExpect(content().contentType(MediaType.APPLICATION_JSON));
 	}
 
 	@Test
 	public void testChangeActiveStatus() throws Exception {
-		UpdatedUserEvent updatedUserEvent = new UpdatedUserEvent();
+		UserUpdatedEvent updatedUserEvent = new UserUpdatedEvent();
 		updatedUserEvent.setUpdateSuccess(true);
 		UserDetails userDetails = new UserDetails();
 		userDetails.setUserId(id);
-		userDetails.setActive(Boolean.FALSE);
+		userDetails.setActive(Boolean.TRUE);
 		updatedUserEvent.setUserDetails(userDetails);
 		UserData userData = UserData.fromUserDetails(userDetails);
 		
@@ -92,12 +114,14 @@ public class UserControllerTest {
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(msgConverter.getObjectMapper().writeValueAsBytes(userData)))
 			.andExpect(status().isOk())
-			.andExpect(content().contentType(MediaType.APPLICATION_JSON));
+			.andExpect(content().contentType(MediaType.APPLICATION_JSON))
+			.andExpect(jsonPath("$.id").value(id))
+			.andExpect(jsonPath("$.active").value(true));
 	}
 
 	@Test
 	public void testChangePassword() throws Exception {
-		UpdatedUserEvent updatedUserEvent = new UpdatedUserEvent();
+		UserUpdatedEvent updatedUserEvent = new UserUpdatedEvent();
 		updatedUserEvent.setUpdateSuccess(true);
 		UserDetails userDetails = new UserDetails();
 		userDetails.setUserId(id);
@@ -111,7 +135,24 @@ public class UserControllerTest {
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(msgConverter.getObjectMapper().writeValueAsBytes(userData)))
 			.andExpect(status().isOk())
-			.andExpect(content().contentType(MediaType.APPLICATION_JSON));
+			.andExpect(content().contentType(MediaType.APPLICATION_JSON))
+			.andExpect(jsonPath("$.id").value(id));
+	}
+
+	@Test
+	public void testCreateUser() throws Exception {
+		UserDetails userDetails = new UserDetails();
+		userDetails.setUserId(id);
+		AllUsersSelectedEvent selectedAllUsersEvent = new AllUsersSelectedEvent();
+		
+		when(userEventHandler.createUser(any(CreateUserEvent.class))).thenReturn(selectedAllUsersEvent);
+		
+		UserData userData = UserData.fromUserDetails(userDetails);
+		
+		mockMvc.perform(post("/users")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(msgConverter.getObjectMapper().writeValueAsBytes(userData)))
+			.andExpect(status().isOk());
 	}
 
 }

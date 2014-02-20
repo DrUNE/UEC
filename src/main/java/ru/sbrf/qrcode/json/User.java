@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * 
  * 15 февр. 2014 г. 22:37:08
  */
+
 public class User implements Serializable {
 
 	private static final long serialVersionUID = -4086430618323997804L;

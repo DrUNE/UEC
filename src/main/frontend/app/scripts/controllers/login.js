@@ -4,43 +4,39 @@
  * js login controller
  */
 angular.module('LoginModule', ['ui.bootstrap'])
-	.controller('LoginController', function ($scope, $modal, $http) {
-		$scope.master = {};
-		var modalRoleWindow;
+    .controller('LoginController', function ($scope, $modal, $http) {
+        $scope.master = {};
 
-		$scope.reset = function () {
-			$scope.user = angular.copy($scope.master);
-		};
+        $scope.reset = function () {
+            $scope.user = angular.copy($scope.master);
+        };
 
-		$scope.load_reles = function () {
-			modalRoleWindow = $modal.open({
-				templateUrl: 'views/role.html',
-				controller: 'RoleController'
-			});
+        $scope.loadRoles = function () {
+            var modalRoleWindow = $modal.open({
+                templateUrl: 'views/role.html',
+                controller: 'RoleController'
+            });
 
-			modalRoleWindow.result.then(function () {
-				alert('modal');
-			});
-		};
+            modalRoleWindow.result.then(function () {
+                alert('modal');
+            });
+        };
 
-	});
+    })
 
-/* js for modal window */
-var RoleController =  function ($scope, $modalInstance, $http) {
+    .controller('RoleController', function ($scope, $modalInstance, $http) {
+        $scope.windowClose = function () {
+            $modalInstance.close();
+        };
 
-		$scope.windowClose = function () {
-			$modalInstance.close();
-		};
+        $scope.login = function () {
+            $http.post('/rest/login', angular.toJson($scope.user))
+                .success(function (data) {
 
-		$scope.login = function () {
-			/*$http.post('/uec/login', angular.toJson($scope.user))
-				.success(function (data) {
-
-				})
-				.fail(function () {
-
-				});*/
-			$modalInstance.close();
-		};
-
-	};
+                })
+                .error(function (data, status) {
+                    alert(angular.toJson({data: data, status:status}, true))
+                });
+            $modalInstance.close();
+        };
+    });

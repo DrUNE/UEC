@@ -3,3 +3,5 @@
 target/
 src/main/frontend/node_modules/
 src/main/frontend/app/bower_components/
+src/main/frontend/.tmp/
+src/main/frontend/dist/

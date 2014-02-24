@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import ru.sbrf.qrcode.events.application.ApplicationDetails;
+import ru.sbrf.qrcode.events.application.ApplicationInfoDetails;
 
 /**
  * @author sbt-koshenkova-mv
@@ -69,6 +70,9 @@ public class Application {
 	public void setInfos(List<ApplicationInfo> infos) {
 		this.infos = infos;
 	}
+	public void addInfo(ApplicationInfo info){
+		this.infos.add(info);
+	}
 	public static Application fromApplicationDetails(ApplicationDetails applicationDetails) {
 		Application application = new Application();
 		application.setSin(applicationDetails.getSin());
@@ -78,6 +82,10 @@ public class Application {
 		application.setRegionName(applicationDetails.getRegionName());
 		application.setClientFIO(applicationDetails.getClientFIO());
 		application.setCurrentStatus(applicationDetails.getCurrentStatus());
+		if(applicationDetails.getInfos()!=null && !applicationDetails.getInfos().isEmpty()){
+			for(ApplicationInfoDetails applicationInfoDetails:applicationDetails.getInfos())
+				application.addInfo(ApplicationInfo.fromApplicationInfoDetails(applicationInfoDetails));
+		}
 		return application;
 	}
 

@@ -1,0 +1,12 @@
+<div ng-controller="FuoController">
+	<table ng-table class="table">
+		<tr ng-repeat="fuo in fuos">
+			<td data-title="'Название'">{{fuo.name}}</td>
+			<td data-title="'Регион'">{{fuo.region}}</td>
+			<td data-title="'ИНН'">{{fuo.inn}}</td>
+			<td data-title="'КПП'">{{fuo.kpp}}</td>
+			<td data-title="'Адрес'">{{fuo.address}}</td>
+			<td data-title="'Категория'">{{fuo.category}}</td>
+		</tr>
+	</table>
+</div>

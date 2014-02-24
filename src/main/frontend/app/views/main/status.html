@@ -1,0 +1,9 @@
+<div ng-controller="StatusController">
+	<table ng-table class="table">
+		<tr ng-repeat="status in statuses">
+			<td data-title="'Код'">{{status.code}}</td>
+			<td data-title="'Название'">{{status.name}}</td>
+			<td data-title="'Описание'">{{status.description}}</td>
+		</tr>
+	</table>
+</div>

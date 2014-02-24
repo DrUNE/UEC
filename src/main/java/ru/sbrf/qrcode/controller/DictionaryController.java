@@ -36,6 +36,10 @@ public class DictionaryController {
 	@Autowired
 	private DictionaryEventHandler dictionaryEventHandler;
 
+	/**
+	 * выборка из справочника ФУО
+	 * @return
+	 */
 	@RequestMapping(value = "/fuo", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<List<Fuo>> getAllFuo() {
@@ -44,15 +48,26 @@ public class DictionaryController {
 		AllFuosSelectedEvent selectedEvent = dictionaryEventHandler.getAllFuos();
 		for (FuoDetails fuoDetails : selectedEvent.getFios())
 			fuos.add(Fuo.fromFuoDetails(fuoDetails));
+		
+		Fuo fuo = new Fuo();
+		fuo.setName("ФУО тест");
+		fuo.setRegionName("Ульяновская область");
+		fuos.add(fuo);
 
 		return new ResponseEntity<List<Fuo>>(fuos, HttpStatus.OK);
 	}
 
+	/**
+	 * 
+	 */
 	@RequestMapping(value = "/fuo", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_XML_VALUE })
 	public void loadFuoDictionary(Object o) {
 		// TODO: определиться с форматом принимаемых данных
 	}
 
+	/**
+	 * 
+	 */
 	@RequestMapping(value = "/region", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<List<Region>> getAllRegions() {
@@ -65,11 +80,17 @@ public class DictionaryController {
 		return new ResponseEntity<List<Region>>(regions, HttpStatus.OK);
 	}
 
+	/**
+	 * 
+	 */
 	@RequestMapping(value = "/region", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_XML_VALUE })
 	public void loadRegionDictionary(Object o) {
 		// TODO: определиться с форматом принимаемых данных
 	}
 
+	/**
+	 * получение статусов заявок
+	 */
 	@RequestMapping(value = "/status", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<List<Status>> getAllStatuses() {
@@ -82,6 +103,9 @@ public class DictionaryController {
 		return new ResponseEntity<List<Status>>(statuses, HttpStatus.OK);
 	}
 
+	/**
+	 * загрузка справочника статусов
+	 */
 	@RequestMapping(value = "/status", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_XML_VALUE })
 	public void loadStatusDictionary(Object o) {
 		// TODO: определиться с форматом принимаемых данных

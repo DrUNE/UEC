@@ -57,7 +57,20 @@ mainApp.config(['$routeProvider',
 			templateUrl: 'views/main/rejects.html',
 			controller: 'MainController'
 		}).
+		when('/fuo', {
+			templateUrl: 'views/main/fuo.html',
+			controller: 'FuoController'
+		}).
+		when('/region', {
+			templateUrl: 'views/main/region.html',
+			controller: 'FuoController'
+		}).
+		when('/status', {
+			templateUrl: 'views/main/status.html',
+			controller: 'FuoController'
+		}).
 		otherwise({
 			redirectTo: '/users'
 		});
     }]);
+

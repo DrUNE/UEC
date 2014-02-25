@@ -1,4 +1,4 @@
-package ru.sbrf.qrcode.json;
+package ru.sbrf.uec.domain;
 
 import java.util.ArrayList;
 import java.util.Date;

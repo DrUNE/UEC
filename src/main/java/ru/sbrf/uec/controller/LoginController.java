@@ -1,4 +1,4 @@
-package ru.sbrf.qrcode.controller;
+package ru.sbrf.uec.controller;
 
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import ru.sbrf.qrcode.json.RequestResult;
-import ru.sbrf.qrcode.json.ResultCode;
-import ru.sbrf.qrcode.json.User;
+import ru.sbrf.uec.domain.RequestResult;
+import ru.sbrf.uec.domain.ResultCode;
+import ru.sbrf.uec.domain.User;
 
 /**
  * @author sbt-koshenkova-mv

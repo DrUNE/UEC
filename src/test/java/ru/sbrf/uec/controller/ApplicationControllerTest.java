@@ -1,4 +1,4 @@
-package ru.sbrf.qrcode.controller;
+package ru.sbrf.uec.controller;
 
 import static org.mockito.Mockito.when;
 import static org.mockito.Matchers.any;
@@ -23,8 +23,9 @@ import ru.sbrf.qrcode.events.application.ApplicationSelectedEvent;
 import ru.sbrf.qrcode.events.application.ApplicationsSelectedEvent;
 import ru.sbrf.qrcode.events.application.SelectApplicationEvent;
 import ru.sbrf.qrcode.events.application.SelectApplicationsEvent;
-import ru.sbrf.qrcode.json.ApplicationFilter;
 import ru.sbrf.qrcode.services.ApplicationEventHandler;
+import ru.sbrf.uec.controller.ApplicationController;
+import ru.sbrf.uec.domain.ApplicationFilter;
 
 /**
  * @author sbt-koshenkova-mv
@@ -56,7 +57,7 @@ public class ApplicationControllerTest {
 	}
 
 	/**
-	 * Test method for {@link ru.sbrf.qrcode.controller.ApplicationController#getApplicationsByFilter(ru.sbrf.qrcode.json.ApplicationFilter)}.
+	 * Test method for {@link ru.sbrf.uec.controller.ApplicationController#getApplicationsByFilter(ru.sbrf.uec.domain.ApplicationFilter)}.
 	 */
 	@Test
 	public void testGetApplicationsByFilter() throws Exception {
@@ -76,7 +77,7 @@ public class ApplicationControllerTest {
 	}
 
 	/**
-	 * Test method for {@link ru.sbrf.qrcode.controller.ApplicationController#getApplicationById(java.lang.String)}.
+	 * Test method for {@link ru.sbrf.uec.controller.ApplicationController#getApplicationById(java.lang.String)}.
 	 */
 	@Test
 	public void testGetApplicationById() throws Exception {

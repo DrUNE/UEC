@@ -1,4 +1,4 @@
-package ru.sbrf.qrcode.controller;
+package ru.sbrf.uec.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +22,8 @@ import ru.sbrf.qrcode.events.user.UserDeletedEvent;
 import ru.sbrf.qrcode.events.user.AllUsersSelectedEvent;
 import ru.sbrf.qrcode.events.user.UserUpdatedEvent;
 import ru.sbrf.qrcode.events.user.UserDetails;
-import ru.sbrf.qrcode.json.UserData;
 import ru.sbrf.qrcode.services.UserEventHandler;
+import ru.sbrf.uec.domain.UserData;
 
 /**
  * Контроллер для управления данными пользавателей

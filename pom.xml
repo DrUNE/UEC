@@ -5,11 +5,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>ru.sbrf.qrcode</groupId>
-	<artifactId>static-web-war</artifactId>
+	<artifactId>uec-web</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name>static-web-war</name>
+	<name>uec-web</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
@@ -36,13 +36,6 @@
 					<artifactId>commons-logging</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency>
-
-		<!--Captcha -->
-		<dependency>
-			<groupId>com.github.axet</groupId>
-			<artifactId>kaptcha</artifactId>
-			<version>${kaptcha.version}</version>
 		</dependency>
 
 		<!--JAXB -->
@@ -134,7 +127,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>static-web</finalName>
+		<finalName>uec-web</finalName>
 
 		<plugins>
 

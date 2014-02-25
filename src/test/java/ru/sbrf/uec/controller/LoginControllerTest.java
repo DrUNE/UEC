@@ -1,4 +1,4 @@
-package ru.sbrf.qrcode.controller;
+package ru.sbrf.uec.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -12,7 +12,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.test.web.servlet.MockMvc;
 
-import ru.sbrf.qrcode.json.User;
+import ru.sbrf.uec.controller.LoginController;
+import ru.sbrf.uec.domain.User;
 
 public class LoginControllerTest {
 

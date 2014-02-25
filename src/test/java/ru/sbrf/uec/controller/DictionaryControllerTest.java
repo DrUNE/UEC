@@ -1,4 +1,4 @@
-package ru.sbrf.qrcode.controller;
+package ru.sbrf.uec.controller;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -19,6 +19,7 @@ import ru.sbrf.qrcode.events.dictionary.AllFuosSelectedEvent;
 import ru.sbrf.qrcode.events.dictionary.AllRegionsSelectedEvent;
 import ru.sbrf.qrcode.events.dictionary.AllStatusesSelectedEvent;
 import ru.sbrf.qrcode.services.DictionaryEventHandler;
+import ru.sbrf.uec.controller.DictionaryController;
 
 public class DictionaryControllerTest {
 

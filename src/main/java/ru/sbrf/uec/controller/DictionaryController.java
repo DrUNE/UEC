@@ -1,4 +1,4 @@
-package ru.sbrf.qrcode.controller;
+package ru.sbrf.uec.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,10 +18,10 @@ import ru.sbrf.qrcode.events.dictionary.AllStatusesSelectedEvent;
 import ru.sbrf.qrcode.events.dictionary.FuoDetails;
 import ru.sbrf.qrcode.events.dictionary.RegionDetails;
 import ru.sbrf.qrcode.events.dictionary.StatusDetails;
-import ru.sbrf.qrcode.json.Fuo;
-import ru.sbrf.qrcode.json.Region;
-import ru.sbrf.qrcode.json.Status;
 import ru.sbrf.qrcode.services.DictionaryEventHandler;
+import ru.sbrf.uec.domain.Fuo;
+import ru.sbrf.uec.domain.Region;
+import ru.sbrf.uec.domain.Status;
 
 /**
  * Обрабока действий проводимых со справочниками

@@ -1,4 +1,4 @@
-package ru.sbrf.qrcode.json;
+package ru.sbrf.uec.domain;
 
 public enum ResultCode {
 	

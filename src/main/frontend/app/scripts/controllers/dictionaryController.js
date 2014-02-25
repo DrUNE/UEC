@@ -6,7 +6,7 @@ angular.module('mainControllers', ['ngTable'])
 
 	var fuos_test = [{}];
 
-	$http.get('/static-web/dictionary/fuo').success(function (data) {
+	$http.get('/uec-web/dictionary/fuo').success(function (data) {
 		$scope.fuos = data;
 	})
 		.error(function (data) {
@@ -19,7 +19,7 @@ angular.module('mainControllers', ['ngTable'])
 
 	$scope.regions_test = [{}];
 	
-	$http.get('/static-web/dictionary/region').success(function (data) {
+	$http.get('/uec-web/dictionary/region').success(function (data) {
 		$scope.regions = data;
 	})
 		.error(function (data) {
@@ -32,7 +32,7 @@ angular.module('mainControllers', ['ngTable'])
 
 	$scope.status_test = [{}];
 	
-	$http.get('/static-web/dictionary/status').success(function (data) {
+	$http.get('/uec-web/dictionary/status').success(function (data) {
 		$scope.statuses = data;
 	})
 		.error(function (data) {

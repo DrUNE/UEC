@@ -1,4 +1,4 @@
-package ru.sbrf.qrcode.controller;
+package ru.sbrf.uec.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +19,9 @@ import ru.sbrf.qrcode.events.application.ApplicationSelectedEvent;
 import ru.sbrf.qrcode.events.application.ApplicationsSelectedEvent;
 import ru.sbrf.qrcode.events.application.SelectApplicationEvent;
 import ru.sbrf.qrcode.events.application.SelectApplicationsEvent;
-import ru.sbrf.qrcode.json.Application;
-import ru.sbrf.qrcode.json.ApplicationFilter;
 import ru.sbrf.qrcode.services.ApplicationEventHandler;
+import ru.sbrf.uec.domain.Application;
+import ru.sbrf.uec.domain.ApplicationFilter;
 
 /**
  * Отображение списка заявок и поиск заявок на выдачу карт

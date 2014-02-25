@@ -1,4 +1,4 @@
-package ru.sbrf.qrcode.controller;
+package ru.sbrf.uec.controller;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
@@ -30,8 +30,9 @@ import ru.sbrf.qrcode.events.user.UserDeletedEvent;
 import ru.sbrf.qrcode.events.user.AllUsersSelectedEvent;
 import ru.sbrf.qrcode.events.user.UserUpdatedEvent;
 import ru.sbrf.qrcode.events.user.UserDetails;
-import ru.sbrf.qrcode.json.UserData;
 import ru.sbrf.qrcode.services.UserEventHandler;
+import ru.sbrf.uec.controller.UserController;
+import ru.sbrf.uec.domain.UserData;
 
 public class UserControllerTest {
 

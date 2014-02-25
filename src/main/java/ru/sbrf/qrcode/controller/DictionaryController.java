@@ -46,13 +46,8 @@ public class DictionaryController {
 		List<Fuo> fuos = new ArrayList<Fuo>();
 
 		AllFuosSelectedEvent selectedEvent = dictionaryEventHandler.getAllFuos();
-		for (FuoDetails fuoDetails : selectedEvent.getFios())
+		for (FuoDetails fuoDetails : selectedEvent.getFuos())
 			fuos.add(Fuo.fromFuoDetails(fuoDetails));
-		
-		Fuo fuo = new Fuo();
-		fuo.setName("ФУО тест");
-		fuo.setRegionName("Ульяновская область");
-		fuos.add(fuo);
 
 		return new ResponseEntity<List<Fuo>>(fuos, HttpStatus.OK);
 	}
@@ -76,7 +71,7 @@ public class DictionaryController {
 		AllRegionsSelectedEvent selectedEvent = dictionaryEventHandler.getAllRegions();
 		for (RegionDetails regionDetails : selectedEvent.getRegions())
 			regions.add(Region.fromRegionDetails(regionDetails));
-		
+
 		return new ResponseEntity<List<Region>>(regions, HttpStatus.OK);
 	}
 

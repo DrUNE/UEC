@@ -4,16 +4,7 @@ angular.module('mainControllers', ['ngTable'])
 
 .controller('FuoController', function ($scope, $http) {
 
-	var fuos_test = [
-		{
-			name: "ФУО1",
-			regionName: "",
-			inn: "",
-			kpp: "",
-			address: "",
-			category: ""
-		}
-	];
+	var fuos_test = [{}];
 
 	$http.get('/static-web/dictionary/fuo').success(function (data) {
 		$scope.fuos = data;
@@ -26,23 +17,26 @@ angular.module('mainControllers', ['ngTable'])
 
 .controller('RegionController', function ($scope, $http) {
 
-	$scope.regions = [
-		{
-			name: "Амурская область",
-			code: "123"
-		}
-	];
+	$scope.regions_test = [{}];
+	
+	$http.get('/static-web/dictionary/region').success(function (data) {
+		$scope.regions = data;
+	})
+		.error(function (data) {
+			$scope.regions = regions_test;
+		});
 
 })
 
 .controller('StatusController', function ($scope, $http) {
 
-	$scope.status = [
-		{
-			code: "234234",
-			name: "",
-			description: ""
-		}
-	];
+	$scope.status_test = [{}];
+	
+	$http.get('/static-web/dictionary/status').success(function (data) {
+		$scope.statuses = data;
+	})
+		.error(function (data) {
+			$scope.statuses = status_test;
+		});
 
 });

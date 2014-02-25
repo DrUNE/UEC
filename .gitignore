@@ -5,3 +5,11 @@ src/main/frontend/node_modules/
 src/main/frontend/app/bower_components/
 src/main/frontend/.tmp/
 src/main/frontend/dist/
+/.settings
+/.project
+/.classpath
+/src/main/frontend/.gitignore
+/src/main/frontend/.editorconfig
+/src/main/frontend/.gitattributes
+/src/main/frontend/.travis.yml
+/src/main/frontend/app/images/yeoman.png
